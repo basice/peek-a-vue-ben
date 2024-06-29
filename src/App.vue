@@ -11,11 +11,7 @@
     <p class="powered-wrapper">
       Powered by
       <a class="powered-link" href="https://v3.vuejs.org/">
-        <img
-          class="powered-logo"
-          src="/images/vue-logo.svg"
-          alt="Vue.js logo"
-        />
+        <img class="powered-logo" src="/images/vue-logo.svg" alt="Vue.js logo" />
         Vue.js 3
       </a>
       <span>, </span>
@@ -23,23 +19,12 @@
         class="powered-link"
         href="https://www.netlify.com/?utm_source=github&utm_medium=peekavue-bh&utm_campaign=devex"
       >
-        <img
-          class="powered-logo"
-          src="/images/netliheart.svg"
-          alt="Netlify Heart Logo"
-        />
+        <img class="powered-logo" src="/images/netliheart.svg" alt="Netlify Heart Logo" />
         Netlify
       </a>
       <span> & </span>
-      <a
-        class="powered-link"
-        href="https://www.github.com/bencodezen/peek-a-vue"
-      >
-        <img
-          class="powered-logo"
-          src="/images/github-logo.svg"
-          alt="GitHub Logo"
-        />
+      <a class="powered-link" href="https://www.github.com/bencodezen/peek-a-vue">
+        <img class="powered-logo" src="/images/github-logo.svg" alt="GitHub Logo" />
         GitHub</a
       >
     </p>
@@ -76,7 +61,7 @@
 import _ from 'lodash'
 import { computed, ref, watch } from 'vue'
 import { launchConfetti } from './utilities/confetti'
-import Card from './components/Card'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -103,8 +88,7 @@ export default {
     })
 
     const matchesFound = computed(() => {
-      const matchedCards = cardList.value.filter(card => card.matched === true)
-        .length
+      const matchedCards = cardList.value.filter((card) => card.matched === true).length
 
       return matchedCards / 2
     })
@@ -133,7 +117,7 @@ export default {
       'witch-hat'
     ]
 
-    cardItems.forEach(item => {
+    cardItems.forEach((item) => {
       cardList.value.push({
         value: item,
         variant: 1,
@@ -158,7 +142,7 @@ export default {
       }
     })
 
-    const flipCard = payload => {
+    const flipCard = (payload) => {
       cardList.value[payload.position].visible = true
 
       if (userSelection.value[0]) {
@@ -175,7 +159,7 @@ export default {
       }
     }
 
-    watch(matchesFound, currentValue => {
+    watch(matchesFound, (currentValue) => {
       if (currentValue === 8) {
         launchConfetti()
       }
@@ -183,7 +167,7 @@ export default {
 
     watch(
       userSelection,
-      currentValue => {
+      (currentValue) => {
         if (currentValue.length === 2) {
           const cardOne = currentValue[0]
           const cardTwo = currentValue[1]
