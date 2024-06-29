@@ -29,7 +29,7 @@
 import _ from 'lodash'
 import { computed, ref, watch } from 'vue'
 import { launchConfetti } from './utilities/confetti'
-import Card from './components/Card'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -56,9 +56,7 @@ export default {
     })
 
     const remainingPairs = computed(() => {
-      const remainingCards = cardList.value.filter(
-        card => card.matched === false
-      ).length
+      const remainingCards = cardList.value.filter((card) => card.matched === false).length
 
       return remainingCards / 2
     })
@@ -87,7 +85,7 @@ export default {
       'witch-hat'
     ]
 
-    cardItems.forEach(item => {
+    cardItems.forEach((item) => {
       cardList.value.push({
         value: item,
         variant: 1,
@@ -112,7 +110,7 @@ export default {
       }
     })
 
-    const flipCard = payload => {
+    const flipCard = (payload) => {
       cardList.value[payload.position].visible = true
 
       if (userSelection.value[0]) {
@@ -129,7 +127,7 @@ export default {
       }
     }
 
-    watch(remainingPairs, currentValue => {
+    watch(remainingPairs, (currentValue) => {
       if (currentValue === 0) {
         launchConfetti()
       }
@@ -137,7 +135,7 @@ export default {
 
     watch(
       userSelection,
-      currentValue => {
+      (currentValue) => {
         if (currentValue.length === 2) {
           const cardOne = currentValue[0]
           const cardTwo = currentValue[1]
