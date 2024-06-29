@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import createDeck from './features/createDeck'
 import createGame from './features/createGame'
 import { launchConfetti } from './utilities/confetti'
-import Card from './components/Card'
+import Card from './components/Card.vue'
 import halloweenDeck from './data/halloweenDeck.json'
 
 export default {
@@ -13,16 +13,11 @@ export default {
   },
   setup() {
     const { cardList } = createDeck(halloweenDeck)
-    const {
-      newPlayer,
-      startGame,
-      restartGame,
-      matchesFound,
-      status
-    } = createGame(cardList)
+    const { newPlayer, startGame, restartGame, matchesFound, status } =
+      createGame(cardList)
     const userSelection = ref([])
 
-    const flipCard = payload => {
+    const flipCard = (payload) => {
       cardList.value[payload.position].visible = true
 
       if (userSelection.value[0]) {
@@ -39,7 +34,7 @@ export default {
       }
     }
 
-    watch(matchesFound, currentValue => {
+    watch(matchesFound, (currentValue) => {
       if (currentValue === 8) {
         launchConfetti()
       }
@@ -47,7 +42,7 @@ export default {
 
     watch(
       userSelection,
-      currentValue => {
+      (currentValue) => {
         if (currentValue.length === 2) {
           const cardOne = currentValue[0]
           const cardTwo = currentValue[1]
@@ -87,60 +82,69 @@ export default {
     srcset="/images/peek-a-vue-title@2x.png 2x, /images/peek-a-vue-title.png 1x"
     src="/images/peek-a-vue-title.png"
     alt="Peek-a-Vue"
-    class="title"
-  />
+    class="title" />
   <section class="description">
     <p>Welcome to Peek-a-Vue, a Halloween themed card matching game!</p>
     <p class="powered-wrapper">
       Powered by
-      <a class="powered-link" href="https://v3.vuejs.org/">
+      <a
+        class="powered-link"
+        href="https://v3.vuejs.org/">
         <img
           class="powered-logo"
           src="/images/vue-logo.svg"
-          alt="Vue.js logo"
-        />
+          alt="Vue.js logo" />
         Vue.js 3
       </a>
       <span>, </span>
       <a
         class="powered-link"
-        href="https://www.netlify.com/?utm_source=github&utm_medium=peekavue-bh&utm_campaign=devex"
-      >
+        href="https://www.netlify.com/?utm_source=github&utm_medium=peekavue-bh&utm_campaign=devex">
         <img
           class="powered-logo"
           src="/images/netliheart.svg"
-          alt="Netlify Heart Logo"
-        />
+          alt="Netlify Heart Logo" />
         Netlify
       </a>
       <span> & </span>
       <a
         class="powered-link"
-        href="https://www.github.com/bencodezen/peek-a-vue"
-      >
+        href="https://www.github.com/bencodezen/peek-a-vue">
         <img
           class="powered-logo"
           src="/images/github-logo.svg"
-          alt="GitHub Logo"
-        />
+          alt="GitHub Logo" />
         GitHub</a
       >
     </p>
   </section>
-  <button v-if="newPlayer" @click="startGame" class="button">
+  <button
+    v-if="newPlayer"
+    @click="startGame"
+    class="button">
     <div class="button-icon">
-      <img class="icon-play" src="/images/play.svg" alt="Play Icon" /><img
+      <img
+        class="icon-play"
+        src="/images/play.svg"
+        alt="Play Icon" /><img
         class="icon-ghost"
         src="/images/cute-ghost.svg"
-        alt="Cute Ghost"
-      />
+        alt="Cute Ghost" />
     </div>
     Start Game
   </button>
-  <button v-else @click="restartGame" class="button">
-    <img src="/images/restart.svg" alt="Restart Icon" />Restart Game
+  <button
+    v-else
+    @click="restartGame"
+    class="button">
+    <img
+      src="/images/restart.svg"
+      alt="Restart Icon" />Restart Game
   </button>
-  <transition-group tag="section" class="game-board" name="shuffle-card">
+  <transition-group
+    tag="section"
+    class="game-board"
+    name="shuffle-card">
     <Card
       v-for="card in cardList"
       :key="`${card.value}-${card.variant}`"
@@ -148,8 +152,7 @@ export default {
       :value="card.value"
       :visible="card.visible"
       :position="card.position"
-      @select-card="flipCard"
-    />
+      @select-card="flipCard" />
   </transition-group>
   <h2 class="status">{{ status }}</h2>
   <footer>Made by <a href="https://www.bencodezen.io">BenCodeZen</a></footer>
